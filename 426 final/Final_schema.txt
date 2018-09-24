@@ -1,0 +1,31 @@
+User:
+	id: INT, Primary Key
+	name: VARCHAR(25) user’s name
+	password: VARCHAR(40), user’s password
+	status: VARCHAR(40), user’s status message
+
+
+Message:
+	id: INT, Primary Key
+	from_user: INT, foreign key to User Table
+	to_user: INT, foreign key to User Table
+	content: VARCHAR(255), message content
+	time: DATETIME, message date
+
+Activity:
+	id: INT, Primary Key
+	holder: INT, foreign key to User Table
+	start_time: INT, 0-23
+	end_time: INT,0-23
+	time: DATETIME, activity date
+	description: VARCHAR(255), description of the activity
+
+Friend:
+	id: INT, Primary Key
+	self: INT, foreign key to User Table
+	other: INT, foreign key to User Table
+
+Participant:
+	id: INT, Primary Key
+	activity: INT, foreign key to Activity Table
+	user: INT, foreign key to User Table

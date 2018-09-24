@@ -1,0 +1,85 @@
+NOTE{
+For Activity in User.activities, they are all within the next 5 days
+}
+
+User{
+name: String
+status: String
+friends { a list of Person objects}
+activities {a list of Activity objects}
+*********************12.7 update****************************
+date: the current date
+};
+
+Message{
+from: String
+to: String
+content: String
+time: Date (which day?)
+};
+
+Activity{
+id: Activity's Primary key in the data base
+holder: String
+start_time: INT 0-23
+end_time:INT 0-23
+time: DATETIME
+description: String
+participant: {a list of user’s name (String)}
+};
+
+Person{
+name: String
+status: String
+messages { a list of Message objects}
+};
+
+GET http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/user?name=<user's name>
+return: a User object
+
+POST http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/user?name=<user's name>&password=<password>
+regist a new user
+return: 
+    true if succeed
+    if false, return JSON encoded false
+
+POST http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/user
+data:
+    status = <status content>
+
+POST http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/messaage
+data: 
+    to = <user's name>
+    from = <user's name>
+    content = <the message content>
+
+return:
+    a Message object corresponding to the message that the user just sends
+
+POST http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/friend
+data:
+    friend_name = <user's name>
+return:
+    Person object or false otherwise
+
+Post http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/activity/going
+Add holder as a participant to the selected activity
+data:
+    id = <Activity.id>
+return:
+    A list of Activity objects that the user has labeled as going to
+
+Post http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/activity
+data: NONE
+return:
+    A list of Activity objects held by user's friends and himself
+
+
+
+Post http://wwwp.cs.unc.edu/Courses/comp426-f16/users/zengao/final/server-side/hub.php/activity
+construct a new activity held by the user
+data:
+    holder = <user's name>
+    time = <The exact date for the activity>
+    start_time = <the start time of activity ranges from 0 - 23, INT>
+    end_time = <the end time of activity ranges from 0 - 23, INT>
